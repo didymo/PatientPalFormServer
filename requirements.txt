@@ -1,5 +1,5 @@
 configparser==4.0.2
-Django==2.0.2
+Django==2.0.12
 django-filter==2.2.0
 djangorestframework==3.10.3
 Markdown==3.1.1
