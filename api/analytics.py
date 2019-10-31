@@ -8,6 +8,7 @@ class Analytics():
 	GET_TOTAL_FORMS = "SELECT server FROM Counter"
 	GET_SYNC_TOTAL = "SELECT * FROM Counter"
 	SYNC_TOTAL_FORMS = "UPDATE Counter SET local = server"
+	COUNT_AGES = "SELECT COUNT(one) FROM Analytics GROUP BY one;"
 
 	def sync_total(self):
 		cursor = connection.cursor()
@@ -28,6 +29,7 @@ class Analytics():
 			cursor = connection.cursor()
 			cursor.execute(self.GET_FORM_STATS)
 			record = cursor.fetchall()
+			listt =[]
 			mylist =[]
 			myDict = {}
 			myDict["Distance"] = {}
@@ -63,26 +65,26 @@ class Analytics():
 					#record = {"name":name, "id":formId, "deploy_date": str(deploy_date)}
 					#mylist.append(record)
 				if i == 1:
-					myDict["Distance"][1]=mylist1
-					myDict["Distance"][2]=mylist2
-					myDict["Distance"][3]=mylist3
-					myDict["Distance"][4]=mylist4
-					myDict["Distance"][5]=mylist5
-					myDict["Distance"][6]=mylist6
+					myDict["Distance"]["_1"]=mylist1
+					myDict["Distance"]["_2"]=mylist2
+					myDict["Distance"]["_3"]=mylist3
+					myDict["Distance"]["_4"]=mylist4
+					myDict["Distance"]["_5"]=mylist5
+					myDict["Distance"]["_6"]=mylist6
 				elif i == 2:
-					myDict["Knowledge"][1]=mylist1
-					myDict["Knowledge"][2]=mylist2
-					myDict["Knowledge"][3]=mylist3
-					myDict["Knowledge"][4]=mylist4
-					myDict["Knowledge"][5]=mylist5
-					myDict["Knowledge"][6]=mylist6
+					myDict["Knowledge"]["_1"]=mylist1
+					myDict["Knowledge"]["_2"]=mylist2
+					myDict["Knowledge"]["_3"]=mylist3
+					myDict["Knowledge"]["_4"]=mylist4
+					myDict["Knowledge"]["_5"]=mylist5
+					myDict["Knowledge"]["_6"]=mylist6
 				elif i == 3:
-					myDict["Rating"][1]=mylist1
-					myDict["Rating"][2]=mylist2
-					myDict["Rating"][3]=mylist3
-					myDict["Rating"][4]=mylist4
-					myDict["Rating"][5]=mylist5
-					myDict["Rating"][6]=mylist6
+					myDict["Rating"]["_1"]=mylist1
+					myDict["Rating"]["_2"]=mylist2
+					myDict["Rating"]["_3"]=mylist3
+					myDict["Rating"]["_4"]=mylist4
+					myDict["Rating"]["_5"]=mylist5
+					myDict["Rating"]["_6"]=mylist6
 				mylist1 = [0]*3
 				mylist2 = [0]*3
 				mylist3 = [0]*3
@@ -98,6 +100,12 @@ class Analytics():
 			for result in record:
 				mylist = result
 				myDict["total"] = mylist
+
+			cursor.execute(self.COUNT_AGES)
+			record = cursor.fetchall()
+			for result in record:
+				listt.append(result[0])
+			myDict["ages"] = listt
 			return myDict
 		else:
 			return None
@@ -149,6 +157,6 @@ class Analytics():
 		switcher = {
 			"Yes": 1, 
 			"Yeah": 2,
-			"Fuck yeah": 3
+			"I'm not sure...yes?": 3
 		}
 		return switcher.get(rate, None)
