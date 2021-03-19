@@ -1,7 +1,7 @@
 configparser==4.0.2
 Django==2.0.2
 django-filter==2.2.0
-djangorestframework==3.10.3
+djangorestframework==3.11.2
 Markdown==3.1.1
 mysql-connector-python==8.0.16
 mysqlclient==1.4.4
